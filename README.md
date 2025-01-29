@@ -1,4 +1,6 @@
-# E-commerce Platform Deployment on AWS EC2
+# Darey.io | Introduction to Cloud Computing
+
+## E-Commerce Platform Deployment with Git, Linux and AWS
 
 ## Table of Contents
 

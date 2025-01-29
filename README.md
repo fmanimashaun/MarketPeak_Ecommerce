@@ -235,13 +235,17 @@ sudo systemctl status httpd
 
     ```bash
     sudo rm -rf /var/www/html/*
-    sudo cp -r ~/MarketPeak_Ecommerce/* /var/www/html/
+    sudo rsync -av /home/ec2-user/MarketPeak_Ecommerce/ /var/www/html/
     sudo systemctl reload httpd
+    sudo rm -rf MarketPeak_Ecommerce/
     ```
 
     >- `sudo rm -rf /var/www/html/*`: This forcefully removes all files and directories within the /var/www/html/ directory.
-    >- `sudo cp -r ~/MarketPeak_Ecommerce/* /var/www/html/`: This copies all files and directories from the ~/MarketPeak_Ecommerce/ directory to the /var/www/html/ directory.
+    >- `sudo rsync -av /home/ec2-user/MarketPeak_Ecommerce/ /var/www/html/`: copy file to `/var/www/html/` while preserving file structure:
+    >    - **`-a`**: Archives the files, preserving structure and attributes.
+    >    - **`-v`**: Provides verbose output, showing which files are being synced.
     >- `sudo systemctl reload httpd`: This reloads the Apache HTTP Server (httpd) configuration without restarting the service.
+    >- `sudo rm -rf MarketPeak_Ecommerce/`: delete the clone repo from the remote server
 
 ### 2.5. Access Website from Browser
 To confirm that our Server is configured properly and the website files are in place, open a web browser using the Public IP address of your EC2 instance `http://<public IP of EC2 instance>/`. This will allow you to view the deployed website.
@@ -318,39 +322,25 @@ After switching to the `development` branch, open the `index.html` file in VSCod
    ```
 
 #### 4.2. **Navigate to the Repository Directory on the Remote Server:**
-   Once you're connected to the remote server, navigate to the directory where you cloned the repository. For example:
+   After connecting to the remote server using `ssh MarketPeak_Ecommerce`, navigate directly to the deployment directory where the repository resides (/var/www/html/). Since we've already synced the contents of the cloned repository to this directory, we can update the code directly there:
 
    ```bash
-   cd MarketPeak_Ecommerce/
+   cd /var/www/html/
    ```
 
 #### 4.3. **Pull the Latest Changes from the `main` Branch:**
-   Pull the latest changes from the `main` branch to ensure that the repository on the remote server is up to date:
+   Once inside the `/var/www/html` directory, use `git pull origin main` to fetch and merge the latest updates from the main branch of the repository:
 
    ```bash
    git pull origin main
    ```
 
-#### 4.4. **Sync Changes to the Web Directory Using `rsync`:**
-   Use `rsync` to copy the updated files from the repository directory to the web server's document root (`/var/www/html`):
-
-   ```bash
-   sudo rsync -av --delete /home/ec2-user/MarketPeak_Ecommerce/ /var/www/html/
-   ```
-
-   >- **`-a`**: Archives the files, preserving structure and attributes.
-   >- **`-v`**: Provides verbose output, showing which files are being synced.
-   >- **`--delete`**: Deletes files in `/var/www/html/` that are not in `/home/ec2-user/MarketPeak_Ecommerce/`.
-
-   This will update the web directory with the latest files from the repo, ensuring that the public-facing website reflects the most recent changes.
-
-#### 4.5. **Restart the Web Server to Apply Changes:**
+#### 4.4. **Restart the Web Server to Apply Changes:**
    Once the changes have been synced, reload or restart the web server to apply them. For an Apache web server, use:
 
    ```bash
    sudo systemctl reload httpd
    ```
-
 
 ### Step 5. Testing the new changes
 - **Access the Website:** Open a web browser and navigate to the public IP address of the EC2 instance `http://<public IP of EC2 instance>/`. Test the new features or fixes to ensure they work as expected in the live environment.

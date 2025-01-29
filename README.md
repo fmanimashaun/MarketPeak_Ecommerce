@@ -322,7 +322,7 @@ After switching to the `development` branch, open the `index.html` file in VSCod
    Once you're connected to the remote server, navigate to the directory where you cloned the repository. For example:
 
    ```bash
-   cd /home/ec2-user/MarketPeak_Ecommerce
+   cd MarketPeak_Ecommerce/
    ```
 
 #### 4.3. **Pull the Latest Changes from the `main` Branch:**
@@ -339,6 +339,10 @@ After switching to the `development` branch, open the `index.html` file in VSCod
    sudo rsync -av --delete /home/ec2-user/MarketPeak_Ecommerce/ /var/www/html/
    ```
 
+   >- **`-a`**: Archives the files, preserving structure and attributes.
+   >- **`-v`**: Provides verbose output, showing which files are being synced.
+   >- **`--delete`**: Deletes files in `/var/www/html/` that are not in `/home/ec2-user/MarketPeak_Ecommerce/`.
+
    This will update the web directory with the latest files from the repo, ensuring that the public-facing website reflects the most recent changes.
 
 #### 4.5. **Restart the Web Server to Apply Changes:**
@@ -350,27 +354,35 @@ After switching to the `development` branch, open the `index.html` file in VSCod
 
 
 ### Step 5. Testing the new changes
-- **Access the Website:** Open a web browser and navigate to the public IP address of the EC2 instance. Test the new features or fixes to ensure they work as expected in the live environment.
+- **Access the Website:** Open a web browser and navigate to the public IP address of the EC2 instance `http://<public IP of EC2 instance>/`. Test the new features or fixes to ensure they work as expected in the live environment.
 
 This workflow emphasizes best practices in software development and deployment, including branch management, code review through pull requests, and continuous integration/deployment strategies. By following these steps, you maintain a stable and up-to-date production environment for your e-commerce platform.
 
-![New changes](./screenshots/update.png)
+![New changes](./screenshots/20.web-update.png)
 
 ## 6. Troubleshooting
 
 ### Git Issues
+
 - **Problem:** Unable to push to GitHub due to authentication failure.
+
     - **Solution:** Ensure the SSH key is correctly added to your GitHub account, and verify that the correct remote URL is set in Git.
 
 ### AWS EC2 Connection Issues
+
 - **Problem:** Cannot SSH into the EC2 instance.
+
     - **Solution:** Verify that your security group allows inbound SSH traffic on port 22 and that you are using the correct key pair.
 
 ### Web Server Issues
+
 - **Problem:** Website does not load after deployment.
+
     - **Solution:** Check if Apache (httpd) is running using `sudo systemctl status httpd`. Restart if necessary with `sudo systemctl restart httpd`.
+    - **Solution:** refresh the browser
 
 - **Problem:** "403 Forbidden" error on accessing the site.
+
     - **Solution:** Ensure that your file permissions in `/var/www/html` allow public access. Use the following command:
 
         ```bash

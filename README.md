@@ -297,7 +297,6 @@ After switching to the `development` branch, open the `index.html` file in VSCod
    ```bash
    git push origin development
    ```
-![Version Control with Git](./screenshots/18.branch_development.png)
 
 ### Step 3. Pull Requests and Merging to the `main` Branch
 

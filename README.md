@@ -307,20 +307,7 @@ After switching to the `development` branch, open the `index.html` file in VSCod
 #### 3.2. **Review and Merge the Pull Request:**
    Review the changes on GitHub, and once everything is satisfactory, merge the PR into the `main` branch.
 
-   Alternatively, you can merge it locally using the following commands:
-   ```bash
-   git checkout main
-   git merge development
-   ```
-
-#### 3.3. **Push the Merged Changes to GitHub:**
-   After merging locally, push the changes to the `main` branch on GitHub:
-   ```bash
-   git push origin main
-   ```
-![PR and merging into master branch](./screenshots/18.git_version.png)
-
-
+![PR and merging into master branch](./screenshots/19.github-pr.png)
 
 ### Step 4. Deploying Updates to the Production Server (Using VSCode Remote SSH)
 

@@ -264,7 +264,7 @@ In a real software development process, it’s essential to avoid editing files 
 - **Update the `index.html` file:**
 After switching to the `development` branch, open the `index.html` file in VSCode and make the necessary changes.
 
-    For example, change the hero section:
+    For example, change the hero section `on line 100`
 
     Before:
     ```html

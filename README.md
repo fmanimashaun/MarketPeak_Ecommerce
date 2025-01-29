@@ -1,4 +1,4 @@
-# Introduction to Cloud Computing
+# E-commerce Platform Deployment on AWS EC2
 
 ## Table of Contents
 
